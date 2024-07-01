@@ -59,44 +59,26 @@ const footerLinks = [
   },
 ];
 
-const { isLoggedIn } = useAuth();
+const authStore = useAuthStore();
 
 watchEffect(() => {
-  if (!isLoggedIn.value) {
+  if (authStore.isNotLoggedIn) {
     navigateTo("/login");
   }
 });
 </script>
 
 <template>
-  <UDashboardLayout>
-    <UDashboardPanel
-      collapsible
-      breakpoint="md"
-      :width="250"
-      :resizable="{ min: 200, max: 300 }"
-    >
-      <UDashboardSidebar>
-        <template #header>
-          <ULink to="/account" class="font-black text-lg"> Threadal 🥑</ULink>
-        </template>
-
-        <UDashboardSidebarLinks :links="links" />
-
-        <div class="flex-1" />
-
-        <template #footer>
-          <UDashboardSidebarLinks :links="footerLinks" />
-          <UserDropdown />
-        </template>
-      </UDashboardSidebar>
-    </UDashboardPanel>
-
+  <div class="bg-slate-100 min-h-screen w-screen">
+    <TopBar>
+      <div>
+        <ULink to="/account"
+          ><NuxtImg src="https://placehold.co/170x55"
+        /></ULink>
+      </div>
+      <div></div>
+      <User />
+    </TopBar>
     <slot />
-
-    <!-- ~/components/HelpSlideover.vue -->
-    <HelpSlideover />
-    <!-- ~/components/NotificationsSlideover.vue -->
-    <NotificationsSlideover />
-  </UDashboardLayout>
+  </div>
 </template>

@@ -1,9 +1,7 @@
 export default defineNuxtRouteMiddleware(() => {
-  const pb = usePb();
+  const authStore = useAuthStore();
 
-  console.log(pb.authStore.isValid);
-
-  if (!pb.authStore.isValid) {
+  if (authStore.isNotLoggedIn) {
     return navigateTo("/login");
   }
 });

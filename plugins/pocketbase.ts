@@ -1,4 +1,3 @@
-// plugins/pocketbase.js
 import PocketBase from "pocketbase";
 
 export default defineNuxtPlugin(async () => {
@@ -13,10 +12,8 @@ export default defineNuxtPlugin(async () => {
     maxAge: 604800,
   });
 
-  // load the store data from the cookie value
   pb.authStore.save(cookie.value?.token, cookie.value?.model);
 
-  // send back the default 'pb_auth' cookie to the client with the latest store state
   pb.authStore.onChange(() => {
     cookie.value = {
       token: pb.authStore.token,
@@ -25,10 +22,8 @@ export default defineNuxtPlugin(async () => {
   });
 
   try {
-    // get an up-to-date auth store state by verifying and refreshing the loaded auth model (if any)
     pb.authStore.isValid && (await pb.collection("users").authRefresh());
   } catch (_) {
-    // clear the auth store on failed refresh
     pb.authStore.clear();
   }
 
