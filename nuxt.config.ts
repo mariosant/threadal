@@ -2,9 +2,10 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/ui", "@nuxt/image", "@nuxtjs/google-fonts", "@pinia/nuxt"],
+  css: ["~/assets/main.css"],
   googleFonts: {
     families: {
-      Inter: [400, 600, 700],
+      "Merriweather+Sans": [400, 600, 700],
     },
   },
   runtimeConfig: {
